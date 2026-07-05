@@ -138,7 +138,10 @@ function App() {
       <header className="topbar">
         <a className="brand" href="#home" aria-label="AuthorGuide home">
           <img className="brand-logo" src="/logo-black.svg" alt="AuthorGuide logo" />
-          <span>AuthorGuide</span>
+          <span>
+            <strong>AuthorGuide</strong>
+            <small>by Delight Team</small>
+          </span>
         </a>
         <nav className="topnav" aria-label="Primary navigation">
           <a href="#about">About</a>
@@ -160,6 +163,7 @@ function App() {
             <p className="lead">
               AuthorGuide is a premium ecosystem for writers, mentors, editors, and publishers building exceptional books and lasting influence.
             </p>
+            <p className="subline">Proudly developed by Delight Team.</p>
             <div className="hero-actions">
               <a className="primary-btn" href="#directory">
                 Explore the Directory
