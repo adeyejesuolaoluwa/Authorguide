@@ -1,5 +1,10 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 import './App.css'
+
+// Initialize EmailJS (use your public key from EmailJS dashboard)
+emailjs.init('YOUR_PUBLIC_KEY_HERE')
+
 
 const stats = [
   { value: '24k+', label: 'members in the circle' },
@@ -132,6 +137,59 @@ const faqs = [
 
 function App() {
   const [openFaq, setOpenFaq] = useState(0)
+  const [appForm, setAppForm] = useState({ name: '', email: '', project: '', details: '' })
+  const [contactForm, setContactForm] = useState({ name: '', email: '', project: '' })
+  const [appStatus, setAppStatus] = useState('')
+  const [contactStatus, setContactStatus] = useState('')
+
+  const handleAppSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const result = await emailjs.send(
+        'YOUR_SERVICE_ID_HERE',
+        'YOUR_APP_TEMPLATE_ID_HERE',
+        {
+          from_name: appForm.name,
+          from_email: appForm.email,
+          project_name: appForm.project,
+          project_details: appForm.details,
+          to_email: 'YOUR_TEAM_EMAIL@example.com',
+        }
+      )
+      if (result.status === 200) {
+        setAppStatus('✓ Application sent successfully!')
+        setAppForm({ name: '', email: '', project: '', details: '' })
+        setTimeout(() => setAppStatus(''), 3000)
+      }
+    } catch (error) {
+      setAppStatus('✗ Failed to send application. Please try again.')
+      console.error(error)
+    }
+  }
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const result = await emailjs.send(
+        'YOUR_SERVICE_ID_HERE',
+        'YOUR_CONTACT_TEMPLATE_ID_HERE',
+        {
+          from_name: contactForm.name,
+          from_email: contactForm.email,
+          message: contactForm.project,
+          to_email: 'YOUR_TEAM_EMAIL@example.com',
+        }
+      )
+      if (result.status === 200) {
+        setContactStatus('✓ Message sent successfully!')
+        setContactForm({ name: '', email: '', project: '' })
+        setTimeout(() => setContactStatus(''), 3000)
+      }
+    } catch (error) {
+      setContactStatus('✗ Failed to send message. Please try again.')
+      console.error(error)
+    }
+  }
 
   return (
     <div className="page-shell">
@@ -147,11 +205,12 @@ function App() {
           <a href="#about">About</a>
           <a href="#leadership">Leadership</a>
           <a href="#directory">Directory</a>
+          <a href="#apply">Apply</a>
           <a href="#blog">Blog</a>
           <a href="#contact">Contact</a>
         </nav>
-        <a className="ghost-btn" href="#contact">
-          Join the Circle
+        <a className="ghost-btn" href="#apply">
+          Apply Now
         </a>
       </header>
 
@@ -424,6 +483,60 @@ function App() {
           </div>
         </section>
 
+        <section className="section apply-section" id="apply">
+          <div className="section-heading">
+            <p className="eyebrow">Apply for a Project</p>
+            <h2>Ready to collaborate with AuthorGuide?</h2>
+            <p>Submit your project details and our team will review your application within 48 hours.</p>
+          </div>
+          <div className="apply-card">
+            <form onSubmit={handleAppSubmit} className="apply-form">
+              <div className="form-group">
+                <label>Your Name</label>
+                <input
+                  type="text"
+                  placeholder="Full name"
+                  value={appForm.name}
+                  onChange={(e) => setAppForm({ ...appForm, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={appForm.email}
+                  onChange={(e) => setAppForm({ ...appForm, email: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Project Name</label>
+                <input
+                  type="text"
+                  placeholder="Title of your project"
+                  value={appForm.project}
+                  onChange={(e) => setAppForm({ ...appForm, project: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Project Details</label>
+                <textarea
+                  placeholder="Describe your project, goals, and how you'd like to collaborate..."
+                  rows="5"
+                  value={appForm.details}
+                  onChange={(e) => setAppForm({ ...appForm, details: e.target.value })}
+                  required
+                />
+              </div>
+              <button type="submit" className="primary-btn">Submit Application</button>
+              {appStatus && <p className="form-status">{appStatus}</p>}
+            </form>
+          </div>
+        </section>
+
         <section className="section contact-section" id="contact">
           <div className="contact-card">
             <div>
@@ -431,11 +544,29 @@ function App() {
               <h2>Let’s shape the next chapter of your literary career.</h2>
               <p>Book a private consultation with our editorial team and discover the right next step.</p>
             </div>
-            <form className="contact-form">
-              <input placeholder="Your name" />
-              <input placeholder="Email address" />
-              <textarea placeholder="Tell us about your project" rows="4" />
-              <button type="button" className="primary-btn">Request a Consultation</button>
+            <form className="contact-form" onSubmit={handleContactSubmit}>
+              <input
+                placeholder="Your name"
+                value={contactForm.name}
+                onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                required
+              />
+              <input
+                placeholder="Email address"
+                type="email"
+                value={contactForm.email}
+                onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                required
+              />
+              <textarea
+                placeholder="Tell us about your project"
+                rows="4"
+                value={contactForm.project}
+                onChange={(e) => setContactForm({ ...contactForm, project: e.target.value })}
+                required
+              />
+              <button type="submit" className="primary-btn">Request a Consultation</button>
+              {contactStatus && <p className="form-status">{contactStatus}</p>}
             </form>
           </div>
         </section>
@@ -449,6 +580,7 @@ function App() {
         <div>
           <a href="#about">About</a>
           <a href="#directory">Directory</a>
+          <a href="#apply">Apply</a>
           <a href="#blog">Blog</a>
         </div>
         <div>
