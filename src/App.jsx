@@ -137,7 +137,7 @@ function App() {
     <div className="page-shell">
       <header className="topbar">
         <a className="brand" href="#home" aria-label="AuthorGuide home">
-          <span className="brand-mark">AG</span>
+          <img className="brand-logo" src="/logo-black.svg" alt="AuthorGuide logo" />
           <span>AuthorGuide</span>
         </a>
         <nav className="topnav" aria-label="Primary navigation">
