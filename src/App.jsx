@@ -8,12 +8,15 @@ const stats = [
   { value: '97%', label: 'satisfaction rate' },
 ]
 
+import dadImage from '../daddy.jpg'
+
 const leaders = [
   {
     name: 'Mina Alvarez',
-    role: 'Founder & Editorial Director',
-    bio: 'Global publishing strategist with a record of launching bestselling voices across continents.',
-    expertise: ['Narrative strategy', 'Brand storytelling'],
+    role: 'Founder & Business Director',
+    bio: 'Global business strategist with a record of launching high-impact ventures across continents.',
+    expertise: ['Business strategy', 'Brand growth'],
+    image: dadImage,
   },
   {
     name: 'Theo Bennett',
@@ -216,7 +219,7 @@ function App() {
         <section className="section section-grid" id="about">
           <div className="section-heading">
             <p className="eyebrow">About AuthorGuide</p>
-            <h2>A luxurious platform for excellence in storytelling and publishing.</h2>
+            <h2>A luxurious platform for excellence in business and publishing.</h2>
             <p>
               We combine editorial discipline, community energy, and modern strategy to help talented voices stand out with distinction.
             </p>
@@ -245,7 +248,11 @@ function App() {
           <div className="card-grid three-up">
             {leaders.map((leader) => (
               <article className="glass-card" key={leader.name}>
-                <div className="avatar">{leader.name.split(' ').map((part) => part[0]).join('')}</div>
+                {leader.image ? (
+                  <img className="leader-image" src={leader.image} alt={leader.name} />
+                ) : (
+                  <div className="avatar">{leader.name.split(' ').map((part) => part[0]).join('')}</div>
+                )}
                 <h3>{leader.name}</h3>
                 <p className="role">{leader.role}</p>
                 <p>{leader.bio}</p>
