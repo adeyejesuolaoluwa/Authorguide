@@ -10,6 +10,7 @@ const stats = [
 
 import dadImage from '../daddy.jpg'
 import samuelImage from '../1002979519.jpg'
+import samusudeenImage from '../mr_samusudeen.jpg'
 
 const leaders = [
   {
@@ -33,6 +34,14 @@ const leaders = [
     role: 'Creative Innovation Lead',
     bio: 'Shapes immersive experiences for books, podcasts, and digital publishing campaigns.',
     expertise: ['Editorial systems', 'Audience expansion'],
+  },
+  {
+    name: 'Mr Samusudeen',
+    role: 'Community Contributor',
+    bio: "Added from user attachment.",
+    expertise: ['Community engagement'],
+    image: samusudeenImage,
+    imageAlt: 'Mr Samusudeen',
   },
 ]
 
