@@ -9,20 +9,24 @@ const stats = [
 ]
 
 import dadImage from '../daddy.jpg'
+import samuelImage from '../1002979519.jpg'
 
 const leaders = [
   {
     name: 'Mina Alvarez',
     role: 'Founder & Business Director',
     bio: 'Global business strategist with a record of launching high-impact ventures across continents.',
-    expertise: ['Business strategy', 'Brand growth'],
+    expertise: ['Mr. Michael sent it'],
     image: dadImage,
+    imageAlt: 'Mr. Michael sent it',
   },
   {
     name: 'Theo Bennett',
     role: 'Head of Community & Growth',
     bio: 'Builds literary ecosystems that connect authors, agents, and readers with lasting momentum.',
-    expertise: ['Community design', 'Publishing partnerships'],
+    expertise: ['Mr. Samuel'],
+    image: samuelImage,
+    imageAlt: 'Mr. Samuel',
   },
   {
     name: 'Selene Park',
@@ -249,7 +253,7 @@ function App() {
             {leaders.map((leader) => (
               <article className="glass-card" key={leader.name}>
                 {leader.image ? (
-                  <img className="leader-image" src={leader.image} alt={leader.name} />
+                  <img className="leader-image" src={leader.image} alt={leader.imageAlt || leader.name} />
                 ) : (
                   <div className="avatar">{leader.name.split(' ').map((part) => part[0]).join('')}</div>
                 )}
